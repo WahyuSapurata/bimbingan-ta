@@ -85,14 +85,24 @@ class Auth extends BaseController
 
     public function do_login(RequestsAuth $authRequest)
     {
+        // Cari user berdasarkan username
         $user = User::where('username', $authRequest->username)->first();
-        if ($user->status == "Belum Aktiv") {
-            return $this->sendError('Unauthorised.', ['error' => 'Akun belum di verifikasi Admin'], 401);
+
+        // Cek apakah user ditemukan
+        if (!$user) {
+            return $this->sendError('Unauthorised.', ['error' => 'Username atau Password Salah'], 401);
         }
 
-        $credential = $authRequest->getCredentials();
-        if (FacadesAuth::attempt($credential)) {
-            $token = $authRequest->user()->createToken('tokenAPI')->plainTextToken;
+        // Cek apakah status user adalah "Belum Aktiv"
+        if ($user->status == "Belum Aktiv") {
+            return $this->sendError('Unauthorised.', ['error' => 'Akun belum diverifikasi Admin'], 401);
+        }
+
+        // Cek kredensial login
+        $credentials = $authRequest->only('username', 'password');
+        if (FacadesAuth::attempt($credentials)) {
+            // Buat token jika login berhasil
+            $token = $user->createToken('tokenAPI')->plainTextToken;
             $data = [
                 'token' => $token,
                 'user' => $user
@@ -100,6 +110,7 @@ class Auth extends BaseController
 
             return $this->sendResponse($data, 'Berhasil login.');
         } else {
+            // Jika kredensial salah
             return $this->sendError('Unauthorised.', ['error' => 'Username atau Password Salah'], 401);
         }
     }
