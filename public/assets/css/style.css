@@ -1,0 +1,418 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap");
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.content {
+    background-color: #ffffff00;
+}
+
+th[rowspan] {
+    vertical-align: middle;
+}
+
+.bg-body {
+    background-image: url(/bg.png);
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-color: white;
+    display: block;
+}
+
+.header_jumbotron {
+    /* padding: 32px 56px 32px 56px; */
+    padding: 30px;
+}
+
+.header_jumbotron>img,
+.header_jumbotron>span,
+.header_jumbotron>h4 {
+    display: inline-block;
+}
+
+.header_jumbotron h4 {
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    color: #ffffff;
+    margin-left: 23px;
+}
+
+.vertical-line {
+    border-left: 4px solid #ffffff;
+    height: 48px;
+    border-radius: 2px;
+    margin-left: 23px;
+
+    /* position: relative;
+  bottom: 9px; */
+}
+
+.side-logo {
+    width: 63px;
+    position: relative;
+    bottom: 16px;
+}
+
+.frame-box {
+    border-radius: 8px;
+    background: rgba(255, 242, 242, -0.87);
+    backdrop-filter: blur(50px);
+    position: absolute;
+    bottom: 55px;
+    left: 30px;
+    width: 515px;
+    padding: 16px;
+}
+
+.frame-box p {
+    color: #0B4D27;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: Red Hat Display;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32.967px;
+    /* 164.837% */
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+.welcome-box {
+    border-radius: 5px;
+    background: #22c55e;
+    padding: 10px 42px 10px 42px;
+    font-family: "Red Hat Display", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.1px;
+    color: #ffffff;
+    width: 238px;
+}
+
+.aside-logo {
+    background-color: #207df2;
+    border-bottom: 1px dashed #cfcfdd;
+    padding: 24px;
+}
+
+.title-header-topbar span {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+
+    /* Base/Dark */
+
+    color: #151a30;
+}
+
+/* .menu-item {
+  margin-bottom: 10px;
+} */
+
+.menu-title {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    /* Base/Light */
+
+    color: #ffffff;
+}
+
+.box-progress {
+    /* padding: 0px 16px 0 16px; */
+    display: flex;
+    height: 16px;
+    overflow: hidden;
+    font-size: 0.75rem;
+    box-shadow: none;
+}
+
+.box-danger-bg {
+    background: #f8c5c3;
+    width: 100%;
+}
+
+.box-success-bg {
+    background: #b8e9cd;
+}
+
+.box-warning-bg {
+    background: #fcebbd;
+}
+
+.item-progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    color: #151a30;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.item-danger-bg {
+    background-color: #f1827e;
+}
+
+.item-success-bg {
+    background-color: #18a756;
+}
+
+.item-warning-bg {
+    background-color: #f8d370;
+}
+
+.card_ {
+    background: #ffffff;
+    /* Medium Shadow */
+
+    box-shadow: 0px 3.20559px 32.0559px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 22px 24px 22px 24px;
+}
+
+.card_ h4 {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+    /* Dark/Black - 600 */
+
+    color: #555770;
+}
+
+.card_ h1 {
+    /* Headline/H2 Heading */
+
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 44px;
+    /* identical to box height, or 138% */
+
+    /* Dark/Black - 700 */
+
+    color: #28293d;
+}
+
+.card_ p {
+    /* Caption/C1 Caption Medium */
+
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height, or 133% */
+
+    /* Color Foundation/Neutral/neutral-900 */
+
+    color: #151a30;
+}
+
+.drop-zone {
+    height: 300px;
+    padding: 10px;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    color: #151a30;
+    border-radius: 10px;
+    background: #ebedf2;
+    padding-bottom: 50px;
+}
+
+.dropzone-ktp {
+    max-width: 100%;
+}
+
+.dropzone-swafoto {
+    max-width: 50%;
+}
+
+.drop-zone--over {
+    border-style: solid;
+}
+
+.drop-zone__prompt {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    position: relative;
+    top: 80px;
+}
+
+.drop-zone__input {
+    display: none;
+}
+
+.drop-zone__thumb {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #cccccc;
+    background-size: cover;
+    position: relative;
+}
+
+.drop-zone__thumb::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    text-align: center;
+}
+
+.icon-trash-alt {
+    background: url("/admin/assets/media/icons/trash-2.svg");
+    height: 100%;
+    width: 100%;
+    display: block;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 7px;
+    top: 5px;
+}
+
+.custom-swal {
+    max-width: 100%;
+    /* Set your desired maximum width */
+}
+
+.custom-modal-container {
+    width: 100%;
+    /* height: 300px; */
+}
+
+.custom-modal-popup {
+    width: 100%;
+    height: 100%;
+}
+
+.img-promt {
+    position: relative;
+    top: 88px;
+}
+
+.radio-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#custom-table td {
+    padding-bottom: 2.5rem;
+}
+
+.table td:first-child,
+.table tr:first-child {
+    padding-left: 10px !important;
+}
+
+.card .card-header {
+    min-height: 60px;
+}
+
+.hidden-checkbox {
+    display: none;
+    /* Sembunyikan checkbox */
+}
+
+/* Menyembunyikan elemen dengan class "hide" */
+.hide {
+    display: none;
+}
+
+/* Menampilkan elemen dengan class "add" */
+.add {
+    display: block;
+    /* Atau tampilkan sesuai kebutuhan */
+}
+
+@media (max-width: 600px) {
+    .phone-login {
+        display: none !important;
+    }
+
+    .header-login {
+        padding: 0 10px !important;
+    }
+
+    .img-login {
+        margin-left: 30px;
+    }
+
+    .sosial-media {
+        display: grid !important;
+        border-radius: 10px !important;
+    }
+
+    .form-login {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+.select2-results__options {
+    text-transform: capitalize;
+}
+
+/* CSS */
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.5;
+    /* Atau sesuaikan dengan level transparansi yang diinginkan */
+}
+
+.tanggal-proide {
+    font-size: 20px;
+    opacity: 0.4;
+    text-align: center;
+}
+
+.background-overlay:before {
+    background: url(https://uin-alauddin.ac.id/themes/images/overlay-pattern/overlay-pattern-1.png);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: " ";
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.8;
+}
