@@ -113,16 +113,16 @@ License: For each use you must have a valid license purchased only from above li
                             </div>
                             <!--end::Input group=-->
                             <!--begin::Submit button-->
-                            {{-- <div class="d-grid">
+                            <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">
                                     <!--begin::Indicator label-->
                                     <span class="indicator-label">Login</span>
                                     <!--end::Indicator label-->
                                 </button>
-                                <div class="text-white mt-3">Kamu belum punya akun? <a
+                                {{-- <div class="text-white mt-3">Kamu belum punya akun? <a
                                         href="{{ route('login.register-akun') }}" class="fw-bolder">Daftar</a>
-                                </div>
-                            </div> --}}
+                                </div> --}}
+                            </div>
                             <!--end::Submit button-->
                         </form>
                         <!--end::Form-->
