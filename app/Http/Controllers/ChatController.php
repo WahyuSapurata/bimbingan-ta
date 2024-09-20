@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Requests\StoreChatRequest;
 use App\Http\Requests\UpdateChatRequest;
 use App\Models\Chat;
@@ -56,6 +57,9 @@ class ChatController extends BaseController
 
         // Simpan data chat
         $chat->save();
+
+        // Broadcast event MessageSent
+        broadcast(new MessageSent($chat))->toOthers();
 
         // Kembalikan respons
         return $this->sendResponse($chat, 'Chat berhasil dikirim');
