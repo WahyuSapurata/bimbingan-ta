@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\JadwalBimbingan;
 use App\Http\Controllers\ListBimbinganController;
@@ -44,6 +45,10 @@ Route::middleware('cors')->group(function () {
 
             Route::post('/api-diskusi-dosen', [DiskusiController::class, 'store']);
             Route::get('/api-mahasiswa', [DiskusiController::class, 'get']);
+
+            Route::get('/api-get-user-chat-dosen', [ChatController::class, 'get_user_chat_dosen']);
+            Route::get('/api-get-chat-dosen/{uuid_receiver}', [ChatController::class, 'getChat']);
+            Route::post('/api-chat-add', [ChatController::class, 'send']);
         });
 
         // Mahasiswa Routes
@@ -58,6 +63,10 @@ Route::middleware('cors')->group(function () {
             Route::post('/api-naskah-add', [NaskahController::class, 'store']);
 
             Route::get('/api-tracking-mahasiswa', [TrackingProgresController::class, 'get_progres']);
+
+            Route::get('/api-get-user-chat-mahasiswa', [ChatController::class, 'get_user_chat_mahasiswa']);
+            Route::get('/api-get-chat-mahasiswa/{uuid_receiver}', [ChatController::class, 'getChat']);
+            Route::post('/api-chat-add', [ChatController::class, 'send']);
         });
 
         Route::get('/api-logout', [Auth::class, 'revoke']);
