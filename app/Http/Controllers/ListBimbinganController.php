@@ -47,6 +47,7 @@ class ListBimbinganController extends BaseController
             $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
 
             $item->mahasiswa = $mahasiswa->name;
+            $item->nim = $mahasiswa->nip_nim;
 
             return $item;
         });
