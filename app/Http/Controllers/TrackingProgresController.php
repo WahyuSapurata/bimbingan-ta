@@ -46,7 +46,7 @@ class TrackingProgresController extends BaseController
             $tracking = TrackingProgres::where('uuid_bimbingan', $item->uuid)->first();
 
             $item->mahasiswa = $mahasiswa->name;
-            $item->progres = $tracking->progres;
+            $item->progres = $tracking->progres ?? null;
 
             return $item;
         });
