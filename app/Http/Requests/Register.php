@@ -23,7 +23,7 @@ class Register extends FormRequest
     {
         return [
             'name' => 'required',
-            'username' => 'required',
+            'username' => 'required|unique:users,username',
             'nip_nim' => 'required',
             'email' => 'required',
             'role' => 'required',
@@ -36,6 +36,7 @@ class Register extends FormRequest
         return [
             'name.required' => 'Kolom nama harus di isi.',
             'username.required' => 'Kolom username harus di isi.',
+            'username.unique' => 'username sudah digunakan oleh pengguna lain.',
             'nip_nim.required' => 'Kolom nip/nim harus di isi.',
             'email.required' => 'Kolom email harus di isi.',
             'role.required' => 'Kolom role harus di isi.',
