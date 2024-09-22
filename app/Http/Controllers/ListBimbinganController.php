@@ -56,6 +56,22 @@ class ListBimbinganController extends BaseController
         return $this->sendResponse($dataFull, 'Get data success');
     }
 
+    public function get_mahasiswa()
+    {
+        // Mengambil semua data pengguna
+        $dataFull = ListBimbingan::where('uuid_mahasiswa', auth()->user()->uuid)->get();
+        $dataFull->map(function ($item) {
+            $dosen = User::where('uuid', $item->uuid_dosen)->first();
+
+            $item->dosen = $dosen->name;
+
+            return $item;
+        });
+
+        // Mengembalikan response berdasarkan data yang sudah disaring
+        return $this->sendResponse($dataFull, 'Get data success');
+    }
+
     public function store(StoreListBimbinganRequest $storeListBimbinganRequest)
     {
         $data = array();

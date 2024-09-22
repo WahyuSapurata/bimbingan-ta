@@ -53,6 +53,8 @@ Route::middleware('cors')->group(function () {
 
         // Mahasiswa Routes
         Route::middleware('role:mahasiswa')->group(function () {
+            Route::get('/api-bimbingan-mahasiswa', [ListBimbinganController::class, 'get_mahasiswa']);
+
             Route::get('/api-jadwalbimbingan-mahasiswa', [JadwalBimbingan::class, 'get_mahasiswa']);
 
             Route::get('/api-riwayat', [Riwayat::class, 'get_mahasiswa']);
