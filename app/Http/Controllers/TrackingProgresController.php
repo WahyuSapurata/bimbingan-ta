@@ -74,6 +74,6 @@ class TrackingProgresController extends BaseController
     public function detail_tracking($params)
     {
         $data = TrackingProgres::where('uuid_bimbingan', $params)->first();
-        $this->sendResponse($data, 'Get data success');
+        return $this->sendResponse($data, 'Get data success');
     }
 }
