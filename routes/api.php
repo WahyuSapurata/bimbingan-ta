@@ -44,7 +44,6 @@ Route::middleware('cors')->group(function () {
             Route::post('/api-tracking-add', [TrackingProgresController::class, 'store']);
 
             Route::post('/api-diskusi-dosen', [DiskusiController::class, 'store']);
-            Route::get('/api-mahasiswa', [DiskusiController::class, 'get']);
 
             Route::get('/api-get-user-chat-dosen', [ChatController::class, 'get_user_chat_dosen']);
             Route::get('/api-get-chat-dosen/{uuid_receiver}', [ChatController::class, 'getChat']);
@@ -59,12 +58,14 @@ Route::middleware('cors')->group(function () {
 
             Route::get('/api-riwayat', [Riwayat::class, 'get_mahasiswa']);
 
-            Route::get('/api-diskusi-mahasiswa', [DiskusiController::class, 'get']);
+            Route::get('/api-diskusi-mahasiswa', [DiskusiController::class, 'get_diskusi']);
+            Route::get('/api-detail-diskusi/{params}', [DiskusiController::class, 'detail_diskusi']);
 
             Route::get('/api-dosen', [NaskahController::class, 'get_dosen']);
             Route::post('/api-naskah-add', [NaskahController::class, 'store']);
 
             Route::get('/api-tracking-mahasiswa', [TrackingProgresController::class, 'get_progres']);
+            Route::get('/api-detail-tacking/{params}', [TrackingProgresController::class, 'detail_tracking']);
 
             Route::get('/api-get-user-chat-mahasiswa', [ChatController::class, 'get_user_chat_mahasiswa']);
             Route::get('/api-get-chat-mahasiswa/{uuid_receiver}', [ChatController::class, 'getChat']);

@@ -15,11 +15,11 @@ class Diskusi extends Model
     protected $fillable = [
         'uuid',
         'uuid_dosen',
-        'uuid_mahasiswa',
         'judul',
         'kategori',
         'deskripsi',
         'file',
+        'link_meet',
     ];
 
     protected static function boot()

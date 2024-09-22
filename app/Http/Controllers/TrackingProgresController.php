@@ -39,56 +39,41 @@ class TrackingProgresController extends BaseController
 
     public function get()
     {
-        $data = TrackingProgres::all();
-        $data->map(function ($item) {
-            $bimbingan = ListBimbingan::where('uuid', $item->uuid_bimbingan)->first();
-            $mahasiswa = User::where('uuid', $bimbingan->uuid_mahasiswa)->first();
+        // Mengambil semua data pengguna
+        $dataFull = ListBimbingan::where('uuid_dosen', auth()->user()->uuid)->get();
+        $dataFull->map(function ($item) {
+            $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
+            $tracking = TrackingProgres::where('uuid_bimbingan', $item->uuid)->first();
 
-            $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
-
-            $item->angkatan = $bimbingan->angkatan;
-            $item->nama_mahasiswa = $mahasiswa->name;
-            $item->nim = $mahasiswa->nip_nim;
-
-            $item->uuid_user = $dosen->uuid;
+            $item->mahasiswa = $mahasiswa->name;
+            $item->progres = $tracking->progres;
 
             return $item;
         });
 
-        // Filter data berdasarkan uuid mahasiswa yang sedang login
-        $filteredData = $data->filter(function ($item) {
-            return isset($item->uuid_user) && $item->uuid_user === auth()->user()->uuid;
-        });
-
-        // Mengubah kembali hasil filter menjadi collection dengan indeks yang berurutan
-        $filteredData = $filteredData->values();
-
-        return $this->sendResponse($filteredData, 'Get data success');
+        // Mengembalikan response berdasarkan data yang sudah disaring
+        return $this->sendResponse($dataFull, 'Get data success');
     }
 
     public function get_progres()
     {
-        $data = TrackingProgres::all();
-        $data->map(function ($item) {
-            $bimbingan = ListBimbingan::where('uuid', $item->uuid_bimbingan)->first();
-            $mahasiswa = User::where('uuid', $bimbingan->uuid_mahasiswa)->first();
-            $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
+        // Mengambil semua data pengguna
+        $dataFull = ListBimbingan::where('uuid_mahasiswa', auth()->user()->uuid)->get();
+        $dataFull->map(function ($item) {
+            $dosen = User::where('uuid', $item->uuid_dosen)->first();
 
             $item->dosen = $dosen->name;
-            $item->judul = $bimbingan->judul;
-            $item->uuid_user = $mahasiswa->uuid;
 
             return $item;
         });
 
-        // Filter data berdasarkan uuid mahasiswa yang sedang login
-        $filteredData = $data->filter(function ($item) {
-            return isset($item->uuid_user) && $item->uuid_user === auth()->user()->uuid;
-        });
+        // Mengembalikan response berdasarkan data yang sudah disaring
+        return $this->sendResponse($dataFull, 'Get data success');
+    }
 
-        // Mengubah kembali hasil filter menjadi collection dengan indeks yang berurutan
-        $filteredData = $filteredData->values();
-
-        return $this->sendResponse($filteredData, 'Get data success');
+    public function detail_tracking($params)
+    {
+        $data = TrackingProgres::where('uuid_bimbingan', $params)->first();
+        $this->sendResponse($data, 'Get data success');
     }
 }

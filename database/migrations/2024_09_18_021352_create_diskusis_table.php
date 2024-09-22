@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->uuid('uuid_dosen');
-            $table->uuid('uuid_mahasiswa');
             $table->string('judul');
             $table->string('kategori');
             $table->string('deskripsi');
             $table->string('file');
+            $table->string('link_meet');
             $table->timestamps();
         });
     }

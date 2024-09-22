@@ -24,11 +24,11 @@ class DiskusiController extends BaseController
         try {
             $data = new Diskusi();
             $data->uuid_dosen = auth()->user()->uuid;
-            $data->uuid_mahasiswa = $storeDiskusiRequest->uuid_mahasiswa;
             $data->judul = $storeDiskusiRequest->judul;
             $data->kategori = $storeDiskusiRequest->kategori;
             $data->deskripsi = $storeDiskusiRequest->deskripsi;
             $data->file = $newFile;
+            $data->link_meet = $storeDiskusiRequest->link_meet;
             $data->save();
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
@@ -36,20 +36,45 @@ class DiskusiController extends BaseController
         return $this->sendResponse($data, 'Added data success');
     }
 
-    public function get()
+    // public function get()
+    // {
+    //     $data = ListBimbingan::all(); // Mengambil semua data dari ListBimbingan
+
+    //     // Map data untuk mendapatkan informasi dosen dan mahasiswa
+    //     $data = $data->map(function ($item) {
+    //         $dosen = User::where('uuid', $item->uuid_dosen)->first();
+    //         $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
+
+    //         if ($dosen && $mahasiswa) {
+    //             $item->uuid_user = $dosen->uuid;
+    //             $item->uuid_mahasiswa = $mahasiswa->uuid;
+    //             $item->nama_mahasiswa = $mahasiswa->name;
+    //         }
+
+    //         return $item;
+    //     });
+
+    //     // Filter data berdasarkan uuid user yang sedang login
+    //     $filteredData = $data->filter(function ($item) {
+    //         return $item->uuid_user === auth()->user()->uuid;
+    //     });
+
+    //     // Mengubah kembali hasil filter menjadi collection
+    //     $filteredData = $filteredData->values();
+
+    //     return $this->sendResponse($filteredData, 'Get data success');
+    // }
+
+    public function get_diskusi()
     {
-        $data = ListBimbingan::all(); // Mengambil semua data dari ListBimbingan
+        $data = Diskusi::all();
+        $data->map(function ($item) {
+            $bimbingan = ListBimbingan::where('uuid_dosen', $item->uuid_dosen)->first();
+            $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
 
-        // Map data untuk mendapatkan informasi dosen dan mahasiswa
-        $data = $data->map(function ($item) {
-            $dosen = User::where('uuid', $item->uuid_dosen)->first();
-            $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
-
-            if ($dosen && $mahasiswa) {
-                $item->uuid_user = $dosen->uuid;
-                $item->uuid_mahasiswa = $mahasiswa->uuid;
-                $item->nama_mahasiswa = $mahasiswa->name;
-            }
+            $item->pembimbing = $bimbingan->pembimbing;
+            $item->dosen = $dosen->name;
+            $item->uuid_user = $bimbingan->uuid_mahasiswa;
 
             return $item;
         });
@@ -63,5 +88,11 @@ class DiskusiController extends BaseController
         $filteredData = $filteredData->values();
 
         return $this->sendResponse($filteredData, 'Get data success');
+    }
+
+    public function detail_diskusi($params)
+    {
+        $data = Diskusi::where('uuid', $params)->first();
+        return $this->sendResponse($data, 'Get data success');
     }
 }
