@@ -32,7 +32,8 @@ Route::middleware('cors')->group(function () {
         Route::middleware('role:dosen')->group(function () {
             Route::get('/api-bimbingan', [ListBimbinganController::class, 'get_dosen']);
 
-            Route::get('/api-riwayat/{params}', [Riwayat::class, 'get']);
+            Route::get('/api-riwayat', [Riwayat::class, 'get']);
+            Route::get('/api-detail-riwayat/{params}', [Riwayat::class, 'detail_riwayat_dosen']);
 
             Route::post('/api-penjadwalan-add', [PenjadwalanController::class, 'store']);
 
@@ -57,6 +58,7 @@ Route::middleware('cors')->group(function () {
             Route::get('/api-jadwalbimbingan-mahasiswa', [JadwalBimbingan::class, 'get_mahasiswa']);
 
             Route::get('/api-riwayat', [Riwayat::class, 'get_mahasiswa']);
+            Route::get('/api-riwayat-mahasiswa/{params}', [Riwayat::class, 'detail_riwayat_mahasiswa']);
 
             Route::get('/api-diskusi-mahasiswa', [DiskusiController::class, 'get_diskusi']);
             Route::get('/api-detail-diskusi/{params}', [DiskusiController::class, 'detail_diskusi']);

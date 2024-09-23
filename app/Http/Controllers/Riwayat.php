@@ -9,34 +9,64 @@ use Illuminate\Http\Request;
 
 class Riwayat extends BaseController
 {
-    public function get($params)
+    public function get()
+    {
+        // Mengambil semua data pengguna
+        $dataFull = ListBimbingan::where('uuid_dosen', auth()->user()->uuid)->get();
+        $dataFull->map(function ($item) {
+            $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
+
+            $item->mahasiswa = $mahasiswa->name;
+            $item->nim = $mahasiswa->nip_nim;
+
+            return $item;
+        });
+
+        // Mengembalikan response berdasarkan data yang sudah disaring
+        return $this->sendResponse($dataFull, 'Get data success');
+    }
+
+    public function detail_riwayat_dosen($params)
     {
         $data = TrackingProgres::where('uuid_bimbingan', $params)->get();
+        $data->map(function ($item) {
+            $bimbingan = ListBimbingan::where('uuid', $item->uuid_bimbingan)->first();
+            $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
+
+            $item->dosen = $dosen->name;
+
+            return $item;
+        });
         return $this->sendResponse($data, 'Get data success');
     }
 
     public function get_mahasiswa()
     {
-        $data = TrackingProgres::all();
-        $data->map(function ($item) {
-            $bimbingan = ListBimbingan::where('uuid', $item->uuid_bimbingan)->first();
-            $mahasiswa = User::where('uuid', $bimbingan->uuid_mahasiswa)->first();
-            $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
+        // Mengambil semua data pengguna
+        $dataFull = ListBimbingan::where('uuid_mahasiswa', auth()->user()->uuid)->get();
+        $dataFull->map(function ($item) {
+            $dosen = User::where('uuid', $item->uuid_dosen)->first();
 
             $item->dosen = $dosen->name;
-            $item->uuid_user = $mahasiswa->uuid;
 
             return $item;
         });
 
-        // Filter data berdasarkan uuid mahasiswa yang sedang login
-        $filteredData = $data->filter(function ($item) {
-            return isset($item->uuid_user) && $item->uuid_user === auth()->user()->uuid;
+        // Mengembalikan response berdasarkan data yang sudah disaring
+        return $this->sendResponse($dataFull, 'Get data success');
+    }
+
+    public function detail_riwayat_mahasiswa($params)
+    {
+        $data = TrackingProgres::where('uuid_bimbingan', $params)->get();
+        $data->map(function ($item) {
+            $bimbingan = ListBimbingan::where('uuid', $item->uuid_bimbingan)->first();
+            $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
+
+            $item->dosen = $dosen->name;
+
+            return $item;
         });
-
-        // Mengubah kembali hasil filter menjadi collection dengan indeks yang berurutan
-        $filteredData = $filteredData->values();
-
-        return $this->sendResponse($filteredData, 'Get data success');
+        return $this->sendResponse($data, 'Get data success');
     }
 }

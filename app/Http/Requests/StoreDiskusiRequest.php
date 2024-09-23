@@ -22,20 +22,20 @@ class StoreDiskusiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uuid_mahasiswa' => 'required',
             'judul' => 'required',
             'kategori' => 'required',
             'deskripsi' => 'required',
+            'link_meet' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'uuid_mahasiswa.required' => 'Kolom nama mahasiswa harus di isi.',
             'judul.required' => 'Kolom judul diskusi harus di isi.',
             'kategori.required' => 'Kolom kategori harus di isi.',
             'deskripsi.required' => 'Kolom deskripsi harus di isi.',
+            'link_meet.required' => 'Kolom link meet harus di isi.',
         ];
     }
 }
