@@ -48,7 +48,7 @@ Route::middleware('cors')->group(function () {
 
             Route::get('/api-get-user-chat-dosen', [ChatController::class, 'get_user_chat_dosen']);
             Route::get('/api-get-chat-dosen/{uuid_receiver}', [ChatController::class, 'getChat']);
-            Route::post('/api-chat-add', [ChatController::class, 'send']);
+            Route::post('/api-chat-add-dosen', [ChatController::class, 'send']);
         });
 
         // Mahasiswa Routes
@@ -71,7 +71,7 @@ Route::middleware('cors')->group(function () {
 
             Route::get('/api-get-user-chat-mahasiswa', [ChatController::class, 'get_user_chat_mahasiswa']);
             Route::get('/api-get-chat-mahasiswa/{uuid_receiver}', [ChatController::class, 'getChat']);
-            Route::post('/api-chat-add', [ChatController::class, 'send']);
+            Route::post('/api-chat-add-mahasiswa', [ChatController::class, 'send']);
         });
 
         Route::get('/api-logout', [Auth::class, 'revoke']);
