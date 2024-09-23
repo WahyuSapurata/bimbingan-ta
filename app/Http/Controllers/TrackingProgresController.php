@@ -43,10 +43,16 @@ class TrackingProgresController extends BaseController
         $dataFull = ListBimbingan::where('uuid_dosen', auth()->user()->uuid)->get();
         $dataFull->map(function ($item) {
             $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
-            $tracking = TrackingProgres::where('uuid_bimbingan', $item->uuid)->first();
+            $tracking = TrackingProgres::where('uuid_bimbingan', $item->uuid)->get();
+
+            $progres = 0;
+            foreach ($tracking as $item_tracking) {
+                $progres += $item_tracking->progres;
+            }
 
             $item->mahasiswa = $mahasiswa->name;
-            $item->progres = $tracking->progres ?? null;
+            $item->nim = $mahasiswa->nip_nim;
+            $item->progres = $progres;
 
             return $item;
         });
