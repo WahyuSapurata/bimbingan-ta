@@ -112,16 +112,16 @@ class NaskahController extends BaseController
         return $this->sendResponse($data, 'Show data success');
     }
 
-    public function update(StoreNaskahRequest $storeNaskahRequest, $params)
+    public function update(Request $request, $params)
     {
         $data = Naskah::where('uuid', $params)->first();
         $oldFilePath = public_path('naskah/' . $data->file);
 
         $newFile = '';
-        if ($storeNaskahRequest->file('file')) {
-            $extension = $storeNaskahRequest->file('file')->extension();
-            $newFile = $storeNaskahRequest->judul . '-' . now()->timestamp . '.' . $extension;
-            $storeNaskahRequest->file('file')->storeAs('naskah', $newFile);
+        if ($request->file('file')) {
+            $extension = $request->file('file')->extension();
+            $newFile = $request->judul . '-' . now()->timestamp . '.' . $extension;
+            $request->file('file')->storeAs('naskah', $newFile);
 
             // Hapus foto lama jika ada
             if (File::exists($oldFilePath)) {
@@ -130,18 +130,20 @@ class NaskahController extends BaseController
         }
 
         try {
-            $data->uuid_dosen = $storeNaskahRequest->uuid_dosen;
-            $data->uuid_mahasiswa = auth()->user()->uuid;
-            $data->judul = $storeNaskahRequest->judul;
-            $data->deskripsi = $storeNaskahRequest->deskripsi;
-            $data->file = $storeNaskahRequest->file('file') ? $newFile : $data->file;
-            $data->status = "Belum Terbaca";
+            $data->file = $request->file('file') ? $newFile : $data->file;
+            $data->status = "Update Naskah";
             $data->save();
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
         }
 
         return $this->sendResponse($data, 'Update data success');
+    }
+
+    public function detail_naskah($params)
+    {
+        $data = Naskah::where('uuid', $params)->first();
+        return $this->sendResponse($data, 'Get data success');
     }
 
     public function update_naskah($params)
@@ -153,6 +155,37 @@ class NaskahController extends BaseController
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
         }
+
+        return $this->sendResponse($data, 'Update data success');
+    }
+
+    public function get_naskah_mahasiswa_refisi()
+    {
+        // Mengambil semua data pengguna
+        $dataFull = ListBimbingan::where('uuid_mahasiswa', auth()->user()->uuid)->get();
+        $dataFull->map(function ($item) {
+            $dosen = User::where('uuid', $item->uuid_dosen)->first();
+
+            $item->dosen = $dosen->name;
+
+            return $item;
+        });
+
+        // Mengembalikan response berdasarkan data yang sudah disaring
+        return $this->sendResponse($dataFull, 'Get data success');
+    }
+
+    public function detail_naskah_mahasiswa_refisi($params)
+    {
+        $data = Naskah::where('uuid_mahasiswa', $params)->where('status', 'Update Naskah')->first();
+        return $this->sendResponse($data, 'Get data success');
+    }
+
+    public function update_refisi_mahasiswa($params)
+    {
+        $data = Naskah::where('uuid', $params)->first();
+        $data->status = 'Refisi Selesai';
+        $data->save();
 
         return $this->sendResponse($data, 'Update data success');
     }

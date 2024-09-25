@@ -40,6 +40,9 @@ Route::middleware('cors')->group(function () {
             Route::get('/api-jadwalbimbingan-dosen', [JadwalBimbingan::class, 'get']);
 
             Route::get('/api-naskah', [NaskahController::class, 'get_naskah_dosen']);
+            Route::get('/api-detail-naskah/{params}', [NaskahController::class, 'detail_naskah']);
+            Route::get('/api-update-naskah/{params}', [NaskahController::class, 'update_naskah']);
+            Route::post('/api-refisi-naskah/{params}', [NaskahController::class, 'update']);
 
             Route::get('/api-tracking-dosen', [TrackingProgresController::class, 'get']);
             Route::post('/api-tracking-add', [TrackingProgresController::class, 'store']);
@@ -72,6 +75,10 @@ Route::middleware('cors')->group(function () {
             Route::get('/api-get-user-chat-mahasiswa', [ChatController::class, 'get_user_chat_mahasiswa']);
             Route::get('/api-get-chat-mahasiswa/{uuid_receiver}', [ChatController::class, 'getChat']);
             Route::post('/api-chat-add-mahasiswa', [ChatController::class, 'send']);
+
+            Route::get('/api-refisi-naskah-mahasiswa', [NaskahController::class, 'get_naskah_mahasiswa_refisi']);
+            Route::get('/api-detail-refisi-naskah-mahasiswa/{params}', [NaskahController::class, 'detail_naskah_mahasiswa_refisi']);
+            Route::get('/api-update-refisi-naskah-mahasiswa/{params}', [NaskahController::class, 'update_refisi_mahasiswa']);
         });
 
         Route::get('/api-logout', [Auth::class, 'revoke']);
