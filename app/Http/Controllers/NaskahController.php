@@ -120,7 +120,7 @@ class NaskahController extends BaseController
         $newFile = '';
         if ($request->file('file')) {
             $extension = $request->file('file')->extension();
-            $newFile = $request->judul . '-' . now()->timestamp . '.' . $extension;
+            $newFile = $data->judul . '-' . now()->timestamp . '.' . $extension;
             $request->file('file')->storeAs('naskah', $newFile);
 
             // Hapus foto lama jika ada
