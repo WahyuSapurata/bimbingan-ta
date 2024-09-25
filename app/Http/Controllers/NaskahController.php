@@ -27,7 +27,9 @@ class NaskahController extends BaseController
     public function get_naskah_dosen()
     {
         // Mengambil semua data pengguna
-        $dataFull = Naskah::where('uuid_dosen', auth()->user()->uuid)->get();
+        $dataFull = Naskah::where('uuid_dosen', auth()->user()->uuid)
+            ->whereIn('status', ['Belum Terbaca', 'Dibaca'])
+            ->get();
         $dataFull->map(function ($item) {
             $bimbingan = ListBimbingan::where('uuid_mahasiswa', $item->uuid_mahasiswa)->first();
             $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
