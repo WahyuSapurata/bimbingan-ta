@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('chat.{receiver_uuid}', function ($user, $receiver_uuid) {
-    // Mengizinkan akses untuk pengirim dan penerima
-    return true;
+    // Izinkan hanya pengguna yang merupakan pengirim atau penerima
+    return (int) $user->uuid === (int) $receiver_uuid || $user->uuid === auth()->user()->uuid;
 });
