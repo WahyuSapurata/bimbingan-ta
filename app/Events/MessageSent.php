@@ -6,12 +6,12 @@ use App\Models\Chat;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class MessageSent
+class MessageSent implements ShouldBroadcast // Menambahkan implementasi ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -24,7 +24,8 @@ class MessageSent
 
     public function broadcastOn()
     {
-        return new PrivateChannel('chat.' . $this->chat->receiver_uuid);
+        // Pastikan menggunakan channel yang sesuai
+        return new Channel('chat.' . $this->chat->receiver_uuid);
     }
 
     public function broadcastWith()
