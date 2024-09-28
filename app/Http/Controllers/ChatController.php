@@ -12,6 +12,80 @@ use Illuminate\Http\Request;
 
 class ChatController extends BaseController
 {
+    public function dosen()
+    {
+        $module = 'Chat';
+        // Ambil semua data bimbingan berdasarkan uuid dosen yang sedang login
+        $data = ListBimbingan::where('uuid_dosen', auth()->user()->uuid)->get();
+
+        // Map data untuk setiap item
+        $formattedData = $data->map(function ($item) {
+            // Ambil data mahasiswa berdasarkan uuid mahasiswa
+            $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
+
+            // Ambil chat antara mahasiswa dan dosen dengan count_receiver = false
+            $chat = Chat::where('receiver_uuid', auth()->user()->uuid) // Dosen sebagai penerima
+                ->where('sender_uuid', $mahasiswa->uuid) // Mahasiswa sebagai pengirim
+                ->where('count_receiver', false) // Chat yang belum dibaca
+                ->get();
+
+            // Set nilai baru ke dalam item
+            $item->receiver_uuid = $mahasiswa->uuid;
+            $item->nama = $mahasiswa->name;
+            $item->total_receiver = $chat->count(); // Total chat yang belum dibaca
+
+            // Ambil chat terakhir, jika ada, untuk mendapatkan waktu
+            $lastChat = $chat->last();
+            $item->jam_receiver = $lastChat ? $lastChat->created_at->toDateTimeString() : null;
+
+            return $item;
+        });
+        return view('chat.dosen', compact('module', 'formattedData'));
+    }
+    public function detail_dosen($param)
+    {
+        $module = 'Chat';
+        $user = User::where('uuid', $param)->first();
+        return view('chat.detaildosen', compact('module', 'user'));
+    }
+
+    public function mahasiswa()
+    {
+        $module = 'Chat';
+        // Ambil semua data bimbingan berdasarkan uuid mahasiswa yang sedang login
+        $data = ListBimbingan::where('uuid_mahasiswa', auth()->user()->uuid)->get();
+
+        // Map data untuk setiap item
+        $formattedData = $data->map(function ($item) {
+            // Ambil data dosen berdasarkan uuid dosen
+            $dosen = User::where('uuid', $item->uuid_dosen)->first();
+
+            // Ambil chat antara dosen dan dosen dengan count_receiver = false
+            $chat = Chat::where('receiver_uuid', auth()->user()->uuid) // Dosen sebagai penerima
+                ->where('sender_uuid', $dosen->uuid) // Mahasiswa sebagai pengirim
+                ->where('count_receiver', false) // Chat yang belum dibaca
+                ->get();
+
+            // Set nilai baru ke dalam item
+            $item->receiver_uuid = $dosen->uuid;
+            $item->nama = $dosen->name;
+            $item->total_receiver = $chat->count(); // Total chat yang belum dibaca
+
+            // Ambil chat terakhir, jika ada, untuk mendapatkan waktu
+            $lastChat = $chat->last();
+            $item->jam_receiver = $lastChat ? $lastChat->created_at->toDateTimeString() : null;
+
+            return $item;
+        });
+        return view('chat.mahasiswa', compact('module', 'formattedData'));
+    }
+    public function detail_mahasiswa($param)
+    {
+        $module = 'Chat';
+        $user = User::where('uuid', $param)->first();
+        return view('chat.detailmahasiswa', compact('module', 'user'));
+    }
+
     public function send(Request $request)
     {
         // Validasi input

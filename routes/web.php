@@ -62,6 +62,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/naskah', 'NaskahController@dosen')->name('naskah');
         Route::get('/get-naskah', 'NaskahController@get_naskah_dosen')->name('get-naskah');
         Route::get('/update-naskah/{params}', 'NaskahController@update_naskah')->name('update-naskah');
+
+        Route::get('/chat-dosen', 'ChatController@dosen')->name('chat-dosen');
+        Route::get('/detail-dosen/{params}', 'ChatController@detail_dosen')->name('detail-dosen');
+        Route::get('/get-message/{params}', 'ChatController@getChat');
+        Route::post('/send-message', 'ChatController@send');
     });
 
     Route::group(['prefix' => 'mahasiswa', 'middleware' => ['auth'], 'as' => 'mahasiswa.'], function () {
@@ -77,6 +82,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/add-naskah', 'NaskahController@store')->name('add-naskah');
         Route::post('/update-naskah/{params}', 'NaskahController@update')->name('update-naskah');
         Route::delete('/delete-naskah/{params}', 'NaskahController@delete')->name('delete-naskah');
+
+        Route::get('/chat-mahasiswa', 'ChatController@mahasiswa')->name('chat-mahasiswa');
+        Route::get('/detail-mahasiswa/{params}', 'ChatController@detail_mahasiswa')->name('detail-mahasiswa');
+        Route::get('/get-message/{params}', 'ChatController@getChat');
+        Route::post('/send-message', 'ChatController@send');
     });
 
     Route::get('/logout', 'Auth@logout')->name('logout');

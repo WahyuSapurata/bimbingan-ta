@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 // Untuk channel chat
-Broadcast::channel('chat.{receiver_uuid}', function ($user, $receiver_uuid) {
-    return $user->uuid === $receiver_uuid; // Perbandingan UUID sebagai string
+Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
+    // Pisahkan chatId menjadi dua UUID
+    $uuids = explode('_', $chatId);
+    if (count($uuids) !== 2) {
+        return false;
+    }
+
+    // Pastikan pengguna adalah salah satu dari kedua UUID
+    if (!in_array($user->uuid, $uuids)) {
+        return false;
+    }
+
+    // Mengembalikan data pengguna untuk Presence Channel
+    return ['uuid' => $user->uuid, 'name' => $user->name];
 });
 
 // Untuk channel penjadwalan

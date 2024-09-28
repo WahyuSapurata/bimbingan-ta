@@ -177,6 +177,24 @@
                     </a>
                 </div>
                 <!--end::Menu item-->
+
+                <!--begin::Menu item-->
+                <div class="menu-item">
+                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'chat-dosen' ? 'active' : '' }}"
+                        href="{{ route('dosen.chat-dosen') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <img src="{{ isset($path[1]) && $path[1] === 'chat-dosen' ? url('assets/media/icons/aside/laporanact.svg') : url('assets/media/icons/aside/laporandef.svg') }}"
+                                    alt="">
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title"
+                            style="{{ isset($path[1]) && $path[1] === 'chat-dosen' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Chat</span>
+                    </a>
+                </div>
+                <!--end::Menu item-->
             @endif
 
             @if ($role === 'mahasiswa')
@@ -213,6 +231,24 @@
                         </span>
                         <span class="menu-title"
                             style="{{ isset($path[1]) && $path[1] === 'naskah' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Naskah</span>
+                    </a>
+                </div>
+                <!--end::Menu item-->
+
+                <!--begin::Menu item-->
+                <div class="menu-item">
+                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'chat-mahasiswa' ? 'active' : '' }}"
+                        href="{{ route('mahasiswa.chat-mahasiswa') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <img src="{{ isset($path[1]) && $path[1] === 'chat-mahasiswa' ? url('assets/media/icons/aside/laporanact.svg') : url('assets/media/icons/aside/laporandef.svg') }}"
+                                    alt="">
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title"
+                            style="{{ isset($path[1]) && $path[1] === 'chat-mahasiswa' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Chat</span>
                     </a>
                 </div>
                 <!--end::Menu item-->
