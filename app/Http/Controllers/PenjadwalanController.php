@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RealTimeNotification;
 use App\Http\Requests\StorePenjadwalanRequest;
 use App\Http\Requests\UpdatePenjadwalanRequest;
 use App\Models\ListBimbingan;
@@ -26,6 +27,10 @@ class PenjadwalanController extends BaseController
             $data->metode = $storePenjadwalanRequest->metode;
             $data->catatan = $storePenjadwalanRequest->catatan;
             $data->save();
+
+            // Trigger event untuk notifikasi
+            $data_user = ListBimbingan::where('uuid', $storePenjadwalanRequest->uuid_bimbingan)->first();
+            event(new RealTimeNotification($data, $data_user->uuid_mahasiswa));
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
         }

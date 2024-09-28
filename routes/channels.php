@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
+// Untuk channel chat
 Broadcast::channel('chat.{receiver_uuid}', function ($user, $receiver_uuid) {
-    return $user->uuid === $receiver_uuid;
+    return $user->uuid === $receiver_uuid; // Perbandingan UUID sebagai string
+});
+
+// Untuk channel penjadwalan
+Broadcast::channel('penjadwalan.{uuid_user}', function ($user, $uuid_user) {
+    return $user->uuid === $uuid_user; // Perbandingan UUID sebagai string
 });
