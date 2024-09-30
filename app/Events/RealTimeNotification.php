@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Penjadwalan;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -9,33 +10,40 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class RealTimeNotification
+class RealTimeNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $penjadwalan;
-    public $uuid_user; // ID pengguna yang akan menerima notifikasi
+    public $studentUuid;
 
-    public function __construct($penjadwalan, $uuid_user)
+    public function __construct(Penjadwalan $penjadwalan, $studentUuid)
     {
         $this->penjadwalan = $penjadwalan;
-        $this->uuid_user = $uuid_user; // Menyimpan ID pengguna
+        $this->studentUuid = $studentUuid;
     }
 
     public function broadcastOn()
     {
-        return new PrivateChannel('penjadwalan.' . $this->uuid_user); // Private channel
+        return new Channel('notifications.' . $this->studentUuid);
+    }
+
+    public function broadcastAs()
+    {
+        return 'jadwal-dibuat';
     }
 
     public function broadcastWith()
     {
         return [
-            'uuid_bimbingan' => $this->penjadwalan->uuid_bimbingan,
+            'message' => 'Jadwal baru telah dibuat.',
             'tanggal' => $this->penjadwalan->tanggal,
             'waktu' => $this->penjadwalan->waktu,
             'metode' => $this->penjadwalan->metode,
             'catatan' => $this->penjadwalan->catatan,
+            'created_at' => $this->penjadwalan->created_at->toDateTimeString(),
         ];
     }
 }

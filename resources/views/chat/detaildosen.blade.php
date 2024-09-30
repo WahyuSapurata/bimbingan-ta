@@ -99,9 +99,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const senderUuid = "{{ auth()->user()->uuid }}"; // UUID pengguna yang sedang login
             const receiverUuid = "{{ $user->uuid }}"; // UUID penerima pesan
+            console.log(senderUuid);
+
 
             // Generate a unique chat ID by sorting the UUIDs
             const chatId = [senderUuid, receiverUuid].sort().join('_');
+            console.log(chatId);
+
 
             // Mendapatkan pesan yang sudah ada
             fetch(`/dosen/get-message/${receiverUuid}`)

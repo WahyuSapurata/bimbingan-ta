@@ -89,4 +89,34 @@
             initDatatable();
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() { // Menangani koneksi status
+            const studentUuid = "{{ auth()->user()->uuid }}";
+
+            if (window.Echo && window.Echo.connector && window.Echo.connector.pusher) {
+                window.Echo.connector.pusher.connection.bind('state_change', states => {
+
+                    if (states.current === 'connected') {
+                        console.log('Pusher connected');
+                    } else if (states.current === 'disconnected') {
+                        console.log('Pusher disconnected');
+                    }
+                });
+
+                window.Echo.channel(`notifications.${studentUuid}`)
+                    .listen('.jadwal-dibuat', (event) => {
+                        swal.fire({
+                            title: event.message,
+                            text: event.tanggal + event.waktu,
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    });
+            } else {
+                console.error('Echo atau Echo.connector tidak diinisialisasi dengan benar.');
+            }
+        });
+    </script>
 @endsection

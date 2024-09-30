@@ -32,6 +32,11 @@ class MessageSent implements ShouldBroadcast // Menambahkan implementasi ShouldB
         return new PresenceChannel('chat.' . $chatId);
     }
 
+    public function broadcastAs()
+    {
+        return 'MessageSent';
+    }
+
     public function broadcastWith()
     {
         return [

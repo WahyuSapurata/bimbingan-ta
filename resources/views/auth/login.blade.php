@@ -15,7 +15,7 @@ License: For each use you must have a valid license purchased only from above li
 
 <head>
     <base href="../../../">
-    <link rel="shortcut icon" href="https://uin-alauddin.ac.id/themes//images/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset('logo-website-fst.png') }}" />
     <title>{{ config('app.name') }} | Login</title>
     <meta charset="utf-8" />
     <meta name="description"

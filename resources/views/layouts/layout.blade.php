@@ -13,7 +13,7 @@
     <meta name="keywords" content="Kemiskinan, perencanaan,monitoring, evaluasi" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="https://uin-alauddin.ac.id/themes//images/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset('logo-website-fst.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,8 @@
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    @vite('resources/js/app.js')
+
     @yield('style')
     <!--end::Global Stylesheets Bundle-->
 </head>
@@ -53,10 +55,10 @@
                     <!--begin::Mobile logo-->
                     <div class="app-sidebar-logo d-flex align-items-center flex-grow-1 flex-lg-grow-0"
                         id="kt_app_sidebar_logo">
-                        <a href="" class="full-logo">
+                        <a href="" class="full-logo d-flex justify-content-center">
                             <img alt="Logo" src="{{ asset('/logo-website-fst.png') }}"
-                                class="mw-75 h-sm-auto app-sidebar-logo-default" />
-                            <img alt="Logo" src="https://uin-alauddin.ac.id/themes//images/favicon.png"
+                                class="mw-25 h-sm-auto app-sidebar-logo-default" />
+                            <img alt="Logo" src="{{ asset('/logo-website-fst.png') }}"
                                 class="h-30px app-sidebar-logo-minimize" />
                         </a>
                     </div>
@@ -201,6 +203,78 @@
 
     {{-- <script src="resources/js/face-api.js"></script> --}}
     {{-- <script src="{{ asset('js/face-api.js') }}"></script> --}}
+    {{-- @if (auth()->user()->role == 'mahasiswa')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { // Menangani koneksi status
+                const studentUuid = "{{ auth()->user()->uuid }}";
+
+                if (window.Echo && window.Echo.connector && window.Echo.connector.pusher) {
+                    window.Echo.connector.pusher.connection.bind('state_change', states => {
+
+                        if (states.current === 'connected') {
+                            console.log('Pusher connected');
+                        } else if (states.current === 'disconnected') {
+                            console.log('Pusher disconnected');
+                        }
+                    });
+
+                    // Subscribe ke saluran private
+                    window.Echo.channel('public-notifications')
+                        .listen('ScheduleNotification', (event) => {
+                            console.log('Received ScheduleNotification:', event);
+
+                            // // Tambahkan notifikasi ke container
+                            // const notificationsContainer = document.getElementById('notifications-container');
+                            // const notificationElement = document.createElement('div');
+                            // notificationElement.classList.add('notification');
+                            // notificationElement.innerHTML = `
+                    //     <strong>Jadwal Baru:</strong> ${event.message} <br>
+                    //     <em>Tanggal: ${event.tanggal} | Waktu: ${event.waktu}</em>
+                    // `;
+                            // notificationsContainer.prepend(notificationElement);
+
+                            // Optional: Tampilkan alert atau toast
+                            alert('Anda memiliki jadwal bimbingan baru!');
+                        })
+                        .error((error) => {
+                            console.error('Error subscribing to channel:', error);
+                        });
+                } else {
+                    console.error('Echo atau Echo.connector tidak diinisialisasi dengan benar.');
+                }
+            });
+        </script>
+    @endif --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() { // Menangani koneksi status
+            const studentUuid = "{{ auth()->user()->uuid }}";
+
+            if (window.Echo && window.Echo.connector && window.Echo.connector.pusher) {
+                window.Echo.connector.pusher.connection.bind('state_change', states => {
+
+                    if (states.current === 'connected') {
+                        console.log('Pusher connected');
+                    } else if (states.current === 'disconnected') {
+                        console.log('Pusher disconnected');
+                    }
+                });
+
+                window.Echo.channel(`notifications.${studentUuid}`)
+                    .listen('.jadwal-dibuat', (event) => {
+                        swal.fire({
+                            title: event.message,
+                            text: event.tanggal + event.waktu,
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    });
+            } else {
+                console.error('Echo atau Echo.connector tidak diinisialisasi dengan benar.');
+            }
+        });
+    </script>
 
     <script>
         // let control = new Control('/logout','');

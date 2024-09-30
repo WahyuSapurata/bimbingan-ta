@@ -30,7 +30,6 @@ Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
     return ['uuid' => $user->uuid, 'name' => $user->name];
 });
 
-// Untuk channel penjadwalan
-Broadcast::channel('penjadwalan.{uuid_user}', function ($user, $uuid_user) {
-    return $user->uuid === $uuid_user; // Perbandingan UUID sebagai string
+Broadcast::channel('notifications.{student_uuid}', function ($user, $student_uuid) {
+    return $user->uuid === $student_uuid; // Memastikan user hanya bisa mendengar channel yang sesuai
 });
