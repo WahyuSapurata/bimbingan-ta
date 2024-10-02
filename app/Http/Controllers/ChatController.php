@@ -208,6 +208,12 @@ class ChatController extends BaseController
         return $this->sendResponse($formattedData, 'Get data success');
     }
 
+    public function getDetailDsn($param)
+    {
+        $user = User::where('uuid', $param)->first();
+        return $this->sendResponse($user, 'Get data success');
+    }
+
     public function get_user_chat_mahasiswa()
     {
         // Ambil semua data bimbingan berdasarkan uuid mahasiswa yang sedang login
@@ -238,5 +244,11 @@ class ChatController extends BaseController
 
         // Kembalikan hasil yang sudah diformat sebagai JSON response
         return $this->sendResponse($formattedData, 'Get data success');
+    }
+
+    public function getDetailMhs($param)
+    {
+        $user = User::where('uuid', $param)->first();
+        return $this->sendResponse($user, 'Get data success');
     }
 }

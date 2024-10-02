@@ -50,6 +50,7 @@ Route::middleware('cors')->group(function () {
             Route::post('/api-diskusi-dosen', [DiskusiController::class, 'store']);
 
             Route::get('/api-get-user-chat-dosen', [ChatController::class, 'get_user_chat_dosen']);
+            Route::get('/api-get-detail-user-chat-dosen/{params}', [ChatController::class, 'getDetailDsn']);
             Route::get('/api-get-chat-dosen/{uuid_receiver}', [ChatController::class, 'getChat']);
             Route::post('/api-chat-add-dosen', [ChatController::class, 'send']);
         });
@@ -73,6 +74,7 @@ Route::middleware('cors')->group(function () {
             Route::get('/api-detail-tacking/{params}', [TrackingProgresController::class, 'detail_tracking']);
 
             Route::get('/api-get-user-chat-mahasiswa', [ChatController::class, 'get_user_chat_mahasiswa']);
+            Route::get('/api-get-detail-user-chat-mahasiswa/{params}', [ChatController::class, 'getDetailMhs']);
             Route::get('/api-get-chat-mahasiswa/{uuid_receiver}', [ChatController::class, 'getChat']);
             Route::post('/api-chat-add-mahasiswa', [ChatController::class, 'send']);
 
