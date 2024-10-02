@@ -133,7 +133,7 @@ class ChatController extends BaseController
         $chat->save();
 
         // Broadcast event MessageSent
-        broadcast(new MessageSent($chat));
+        broadcast(new MessageSent($chat))->toOthers();
 
         // Kembalikan respons
         return $this->sendResponse($chat, 'Chat berhasil dikirim');
