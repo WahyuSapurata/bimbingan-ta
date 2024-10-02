@@ -224,7 +224,7 @@
 
                 // Menerima pesan dari Presence Channel
                 window.Echo.join(`chat.${chatId}`)
-                    .listen('MessageSent', (event) => {
+                    .listen('.MessageSent', (event) => {
                         const messagesContainer = document.getElementById('messages');
                         const messageElement = document.createElement('div');
                         messageElement.classList.add('message');
