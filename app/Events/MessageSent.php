@@ -29,7 +29,7 @@ class MessageSent implements ShouldBroadcast // Menambahkan implementasi ShouldB
         sort($chatId);
         $chatId = implode('_', $chatId);
 
-        return new PresenceChannel('chat.' . $chatId);
+        return new PresenceChannel('presence-chat.' . $chatId);
     }
 
     public function broadcastAs()

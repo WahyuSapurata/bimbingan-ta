@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 // Untuk channel chat
-Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
+Broadcast::channel('presence-chat.{chatId}', function ($user, $chatId) {
     // Pisahkan chatId menjadi dua UUID
     $uuids = explode('_', $chatId);
     if (count($uuids) !== 2) {
