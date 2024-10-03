@@ -18,11 +18,13 @@ class RealTimeNotification implements ShouldBroadcast
 
     public $penjadwalan;
     public $studentUuid;
+    public $nama_dosen;
 
-    public function __construct(Penjadwalan $penjadwalan, $studentUuid)
+    public function __construct(Penjadwalan $penjadwalan, $nama_dosen, $studentUuid)
     {
         $this->penjadwalan = $penjadwalan;
         $this->studentUuid = $studentUuid;
+        $this->nama_dosen = $nama_dosen;
     }
 
     public function broadcastOn()
@@ -39,7 +41,7 @@ class RealTimeNotification implements ShouldBroadcast
     {
         return [
             'message' => 'Jadwal baru telah dibuat.',
-            'nama' => $this->penjadwalan->nama,
+            'nama' => $this->nama_dosen,
             'tanggal' => $this->penjadwalan->tanggal,
             'waktu' => $this->penjadwalan->waktu,
             'metode' => $this->penjadwalan->metode,
