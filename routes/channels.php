@@ -16,34 +16,19 @@ use Illuminate\Support\Facades\Log;
 
 // Untuk channel chat
 Broadcast::channel('presence-chat.{chatId}', function ($user, $chatId) {
-    // Log data awal
-    Log::info('Checking presence-chat channel:', [
-        'user_uuid' => $user->uuid,
-        'chatId' => $chatId,
-    ]);
-
     // Pisahkan chatId menjadi dua UUID
     $uuids = explode('_', $chatId);
-    Log::info('Parsed UUIDs:', ['uuids' => $uuids]);
-
     if (count($uuids) !== 2) {
-        Log::warning('Invalid chatId format:', ['chatId' => $chatId]);
         return false;
     }
 
     // Pastikan pengguna adalah salah satu dari kedua UUID
     if (!in_array($user->uuid, $uuids)) {
-        Log::warning('User not authorized for chatId:', [
-            'user_uuid' => $user->uuid,
-            'chatId' => $chatId,
-        ]);
         return false;
     }
 
     // Mengembalikan data pengguna untuk Presence Channel
-    $presenceData = ['uuid' => $user->uuid, 'name' => $user->name];
-    Log::info('User authorized for channel:', $presenceData);
-    return $presenceData;
+    return ['uuid' => $user->uuid, 'name' => $user->name];
 });
 
 Broadcast::channel('notifications.{student_uuid}', function ($user, $student_uuid) {
