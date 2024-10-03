@@ -43,10 +43,6 @@ class RealTimeNotification implements ShouldBroadcast
             'message' => 'Jadwal baru telah dibuat.',
             'nama' => $this->nama_dosen,
             'tanggal' => $this->penjadwalan->tanggal,
-            'waktu' => $this->penjadwalan->waktu,
-            'metode' => $this->penjadwalan->metode,
-            'catatan' => $this->penjadwalan->catatan,
-            'created_at' => $this->penjadwalan->created_at->toDateTimeString(),
         ];
     }
 }

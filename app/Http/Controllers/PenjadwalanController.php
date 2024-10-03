@@ -32,7 +32,7 @@ class PenjadwalanController extends BaseController
             // Trigger event untuk notifikasi
             $data_user = ListBimbingan::where('uuid', $storePenjadwalanRequest->uuid_bimbingan)->first();
             $dosen = User::where('uuid', $data_user->uuid_dosen)->first();
-            event(new RealTimeNotification($data, $dosen->nname, $data_user->uuid_mahasiswa));
+            event(new RealTimeNotification($data, $dosen->name, $data_user->uuid_mahasiswa));
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
         }
