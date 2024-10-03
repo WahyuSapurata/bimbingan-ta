@@ -36,7 +36,7 @@ class MessageSent implements ShouldBroadcast // Menambahkan implementasi ShouldB
     public function broadcastOn()
     {
         // Menentukan public channel
-        return new Channel('public-chat');
+        return new Channel('public-chat.' . $this->chat->receiver_uuid);
     }
 
     // public function broadcastAs()
