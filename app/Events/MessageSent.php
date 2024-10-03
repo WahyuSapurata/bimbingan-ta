@@ -22,20 +22,27 @@ class MessageSent implements ShouldBroadcast // Menambahkan implementasi ShouldB
         $this->chat = $chat;
     }
 
+    // public function broadcastOn()
+    // {
+    //     // Generate a unique chat ID by sorting the UUIDs
+    //     $chatId = [$this->chat->sender_uuid, $this->chat->receiver_uuid];
+    //     sort($chatId);
+    //     $chatId = implode('_', $chatId);
+
+    //     return new PresenceChannel('presence-chat.' . $chatId);
+    // }
+
+    // Tentukan channel public
     public function broadcastOn()
     {
-        // Generate a unique chat ID by sorting the UUIDs
-        $chatId = [$this->chat->sender_uuid, $this->chat->receiver_uuid];
-        sort($chatId);
-        $chatId = implode('_', $chatId);
-
-        return new PresenceChannel('presence-chat.' . $chatId);
+        // Menentukan public channel
+        return new Channel('public-chat');
     }
 
-    public function broadcastAs()
-    {
-        return 'MessageSent';
-    }
+    // public function broadcastAs()
+    // {
+    //     return 'MessageSent';
+    // }
 
     public function broadcastWith()
     {
