@@ -7,6 +7,7 @@ use App\Http\Requests\StorePenjadwalanRequest;
 use App\Http\Requests\UpdatePenjadwalanRequest;
 use App\Models\ListBimbingan;
 use App\Models\Penjadwalan;
+use App\Models\User;
 
 class PenjadwalanController extends BaseController
 {
@@ -30,6 +31,8 @@ class PenjadwalanController extends BaseController
 
             // Trigger event untuk notifikasi
             $data_user = ListBimbingan::where('uuid', $storePenjadwalanRequest->uuid_bimbingan)->first();
+            $dosen = User::where('uuid', $data_user->uuid_dosen)->first();
+            $data->nama = $dosen->name;
             event(new RealTimeNotification($data, $data_user->uuid_mahasiswa));
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
