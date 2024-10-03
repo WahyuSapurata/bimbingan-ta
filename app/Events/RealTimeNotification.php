@@ -40,7 +40,7 @@ class RealTimeNotification implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'message' => 'Jadwal baru telah dibuat.',
+            'message' => 'Jadwal baru di buat dosen.',
             'nama' => $this->nama_dosen,
             'tanggal' => $this->penjadwalan->tanggal,
         ];
