@@ -31,6 +31,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/registrasi', 'Dosen@index')->name('registrasi');
         Route::get('/registrasi-get', 'Dosen@get')->name('registrasi-get');
         Route::post('/registrasi-update/{params}', 'Dosen@update')->name('registrasi-update');
+        Route::post('/add-dosen', 'Dosen@add')->name('add-dosen');
 
         Route::get('/mahasiswa', 'Mahasiswa@index')->name('mahasiswa');
         Route::get('/mahasiswa-get', 'Mahasiswa@get')->name('mahasiswa-get');

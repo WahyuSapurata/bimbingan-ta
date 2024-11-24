@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Penjadwalan;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,40 +9,32 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
-class RealTimeNotification implements ShouldBroadcast
+class Verifikasi
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $penjadwalan;
     public $studentUuid;
-    public $nama_dosen;
 
-    public function __construct(Penjadwalan $penjadwalan, $nama_dosen, $studentUuid)
+    public function __construct($studentUuid)
     {
-        $this->penjadwalan = $penjadwalan;
         $this->studentUuid = $studentUuid;
-        $this->nama_dosen = $nama_dosen;
     }
 
     public function broadcastOn()
     {
-        return new Channel('notifications.' . $this->studentUuid);
+        return new Channel('verifikasi.' . $this->studentUuid);
     }
 
     public function broadcastAs()
     {
-        return 'jadwal-dibuat';
+        return 'verifikasi';
     }
 
     public function broadcastWith()
     {
         return [
-            'message' => 'Jadwal baru di buat dosen.',
-            'nama' => $this->nama_dosen,
-            'tanggal' => $this->penjadwalan->tanggal,
-            'waktu' => $this->penjadwalan->waktu,
+            'message' => 'Telah di Verifikasi Admin.',
         ];
     }
 }

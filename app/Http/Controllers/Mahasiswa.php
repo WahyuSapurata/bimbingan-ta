@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Verifikasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,8 @@ class Mahasiswa extends BaseController
             $data = User::where('uuid', $params)->first();
             $data->status = "TERVERIFIKASI";
             $data->save();
+
+            event(new Verifikasi($params));
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
         }
