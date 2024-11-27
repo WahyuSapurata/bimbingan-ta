@@ -85,7 +85,7 @@ class Auth extends BaseController
 
     public function temporary_login($params)
     {
-        $user = User::where('uuid', $params->uuid)->first();
+        $user = User::where('uuid', $params)->first();
         $token = $user->createToken('tokenAPI')->plainTextToken;
         $data = [
             'token' => $token,
