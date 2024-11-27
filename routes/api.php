@@ -27,6 +27,8 @@ Route::middleware('cors')->group(function () {
     Route::post('/api-register', [Auth::class, 'register_proses']);
     Route::post('/api-login', [Auth::class, 'do_login']);
 
+    Route::get('/api-temporary/{params}', [Auth::class, 'temporary_login']);
+
     Route::middleware('auth:sanctum')->group(function () {
         // Admin Routes
         Route::middleware('role:dosen')->group(function () {

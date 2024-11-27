@@ -83,6 +83,17 @@ class Auth extends BaseController
         return $this->sendResponse($data, 'Register data success');
     }
 
+    public function temporary_login($params)
+    {
+        $user = User::where('uuid', $params->uuid)->first();
+        $token = $user->createToken('tokenAPI')->plainTextToken;
+        $data = [
+            'token' => $token,
+            'user' => $user
+        ];
+        return $this->sendResponse($data, 'Get data success');
+    }
+
     public function do_login(RequestsAuth $authRequest)
     {
         // Cari user berdasarkan username
