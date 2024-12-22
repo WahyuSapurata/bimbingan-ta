@@ -15,7 +15,8 @@
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>NIP</th>
+                                            <th>NIM</th>
+                                            <th>Password</th>
                                             <th>Email</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -83,6 +84,9 @@
                     className: 'text-center',
                 }, {
                     data: 'nip_nim',
+                    className: 'text-center',
+                }, {
+                    data: 'password',
                     className: 'text-center',
                 }, {
                     data: 'email',

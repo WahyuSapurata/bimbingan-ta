@@ -31,6 +31,7 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Username</th>
+                                            <th>Password</th>
                                             <th>NIP</th>
                                             <th>Email</th>
                                             <th>Status</th>
@@ -203,6 +204,9 @@
                     className: 'text-center',
                 }, {
                     data: 'username',
+                    className: 'text-center',
+                }, {
+                    data: 'password',
                     className: 'text-center',
                 }, {
                     data: 'nip_nim',

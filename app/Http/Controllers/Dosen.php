@@ -33,7 +33,7 @@ class Dosen extends BaseController
             $data->username = $register->username;
             $data->nip_nim = $register->nip_nim;
             $data->email = $register->email;
-            $data->password = Hash::make($register->password);
+            $data->password = $register->password;
             $data->role = $register->role;
             $data->status = 'BELUM TERVERIFIKASI';
             $data->save();
