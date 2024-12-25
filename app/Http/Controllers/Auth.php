@@ -66,7 +66,6 @@ class Auth extends BaseController
 
     public function register_proses(Register $register)
     {
-        dd($register->all());
         $data = array();
         try {
             $data = new User();
