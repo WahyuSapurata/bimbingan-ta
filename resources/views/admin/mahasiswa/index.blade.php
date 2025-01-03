@@ -86,7 +86,7 @@
                     data: 'nip_nim',
                     className: 'text-center',
                 }, {
-                    data: 'password',
+                    data: 'password_plain',
                     className: 'text-center',
                 }, {
                     data: 'email',

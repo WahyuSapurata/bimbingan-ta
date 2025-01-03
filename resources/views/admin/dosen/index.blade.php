@@ -206,7 +206,7 @@
                     data: 'username',
                     className: 'text-center',
                 }, {
-                    data: 'password',
+                    data: 'password_plain',
                     className: 'text-center',
                 }, {
                     data: 'nip_nim',

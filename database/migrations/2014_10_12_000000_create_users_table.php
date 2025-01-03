@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nip_nim');
             $table->string('email');
             $table->string('password');
+            $table->string('password_plain')->nullable();
             $table->string('role');
             $table->string('status')->nullable();
             $table->rememberToken();
