@@ -72,9 +72,9 @@ class DiskusiController extends BaseController
             $bimbingan = ListBimbingan::where('uuid_dosen', $item->uuid_dosen)->first();
             $dosen = User::where('uuid', $bimbingan->uuid_dosen)->first();
 
-            $item->pembimbing = $bimbingan->pembimbing;
-            $item->dosen = $dosen->name;
-            $item->uuid_user = $bimbingan->uuid_mahasiswa;
+            $item->pembimbing = $bimbingan->pembimbing ?? null;
+            $item->dosen = $dosen->name ?? null;
+            $item->uuid_user = $bimbingan->uuid_mahasiswa ?? null;
 
             return $item;
         });
