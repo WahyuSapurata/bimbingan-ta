@@ -34,9 +34,9 @@ class NaskahController extends BaseController
             $bimbingan = ListBimbingan::where('uuid_mahasiswa', $item->uuid_mahasiswa)->first();
             $mahasiswa = User::where('uuid', $item->uuid_mahasiswa)->first();
 
-            $item->angkatan = $bimbingan->angkatan;
-            $item->mahasiswa = $mahasiswa->name;
-            $item->nim = $mahasiswa->nip_nim;
+            $item->angkatan = $bimbingan->angkatan ?? null;
+            $item->mahasiswa = $mahasiswa->name ?? null;
+            $item->nim = $mahasiswa->nip_nim ?? null;
 
             return $item;
         });

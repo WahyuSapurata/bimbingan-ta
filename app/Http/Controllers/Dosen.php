@@ -56,4 +56,16 @@ class Dosen extends BaseController
 
         return $this->sendResponse($data, 'Update data success');
     }
+
+    public function delete($params)
+    {
+        $data = array();
+        try {
+            $data = User::where('uuid', $params)->first();
+            $data->delete();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+        return $this->sendResponse($data, 'Delete data success');
+    }
 }

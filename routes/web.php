@@ -32,10 +32,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/registrasi-get', 'Dosen@get')->name('registrasi-get');
         Route::post('/registrasi-update/{params}', 'Dosen@update')->name('registrasi-update');
         Route::post('/add-dosen', 'Dosen@add')->name('add-dosen');
+        Route::delete('/delete-dosen/{params}', 'Dosen@delete')->name('delete-dosen');
 
         Route::get('/mahasiswa', 'Mahasiswa@index')->name('mahasiswa');
         Route::get('/mahasiswa-get', 'Mahasiswa@get')->name('mahasiswa-get');
         Route::post('/mahasiswa-update/{params}', 'Mahasiswa@update')->name('mahasiswa-update');
+        Route::delete('/delete-mahasiswa/{params}', 'Mahasiswa@delete')->name('delete-mahasiswa');
 
         Route::get('/bimbingan', 'ListBimbinganController@index')->name('bimbingan');
         Route::get('/get-bimbingan', 'ListBimbinganController@get')->name('get-bimbingan');
